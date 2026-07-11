@@ -1,4 +1,5 @@
-from app.rag import read_pdf , create_chunk
+from app.rag import read_pdf , create_chunk 
+from app.embeddings import create_embed
 
 text = read_pdf("documents/python.pdf")
 
@@ -22,3 +23,5 @@ for i , chunk in enumerate(chunks):
     print(f"\n ========== Chunk {i + 1 } ====")
 
     print(chunk)
+
+
