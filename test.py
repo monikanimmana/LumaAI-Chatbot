@@ -25,3 +25,8 @@ for i , chunk in enumerate(chunks):
     print(chunk)
 
 
+texts= "Python is High Level programming language and very easy syntax and works efficienty using djanjo for backend developers"
+
+embedding = create_embed(text)
+
+print(embedding)
