@@ -1,0 +1,194 @@
+Python Programming
+Introduction
+
+Python is a high-level, interpreted, and object-oriented programming language created by Guido van Rossum and first released in 1991. It is widely used for web development, artificial intelligence, machine learning, data science, automation, scripting, and backend development.
+
+Python has a simple syntax that makes it easy to read and write. It supports multiple programming paradigms, including procedural programming, object-oriented programming, and functional programming.
+
+Features of Python
+Easy to learn and use
+Open source and free
+Cross-platform compatibility
+Large standard library
+Automatic memory management
+Supports object-oriented programming
+Dynamic typing
+Extensive third-party libraries
+Data Types
+
+Python provides several built-in data types.
+
+Numeric Types
+int
+float
+complex
+
+Example:
+
+age = 21
+price = 99.99
+number = 2 + 3j
+Sequence Types
+list
+tuple
+range
+
+Example:
+
+languages = ["Python", "Java", "C++"]
+Mapping Type
+
+Dictionary stores data as key-value pairs.
+
+Example:
+
+student = {
+    "name": "Monika",
+    "age": 21
+}
+Set Type
+
+Sets store unique values.
+
+Example:
+
+numbers = {1,2,3,4}
+Variables
+
+Variables are used to store data.
+
+Example
+
+name = "Alice"
+age = 22
+Operators
+
+Python supports
+
+Arithmetic Operators
+Assignment Operators
+Comparison Operators
+Logical Operators
+Membership Operators
+Identity Operators
+Bitwise Operators
+
+Example
+
+a = 10
+b = 5
+
+print(a + b)
+print(a > b)
+Conditional Statements
+
+Python uses if, elif and else.
+
+Example
+
+marks = 85
+
+if marks >= 90:
+    print("Grade A")
+elif marks >= 75:
+    print("Grade B")
+else:
+    print("Grade C")
+Loops
+For Loop
+for i in range(5):
+    print(i)
+While Loop
+count = 1
+
+while count <= 5:
+    print(count)
+    count += 1
+Functions
+
+Functions improve code reusability.
+
+Example
+
+def add(a, b):
+    return a + b
+
+print(add(10,20))
+Object-Oriented Programming
+
+Python supports OOP concepts.
+
+Classes
+class Student:
+    def __init__(self, name):
+        self.name = name
+Objects
+student = Student("Monika")
+Inheritance
+class Animal:
+    pass
+
+class Dog(Animal):
+    pass
+Polymorphism
+
+Different classes can implement methods with the same name.
+
+File Handling
+
+Reading a file
+
+with open("data.txt","r") as file:
+    print(file.read())
+
+Writing to a file
+
+with open("data.txt","w") as file:
+    file.write("Hello")
+Exception Handling
+
+Python uses try and except.
+
+Example
+
+try:
+    value = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+Python Libraries
+
+Popular libraries include
+
+NumPy
+Pandas
+Matplotlib
+TensorFlow
+PyTorch
+FastAPI
+Django
+Requests
+BeautifulSoup
+Applications of Python
+
+Python is used in
+
+Web Development
+Artificial Intelligence
+Machine Learning
+Data Science
+Automation
+Cloud Computing
+Cybersecurity
+Desktop Applications
+Game Development
+REST API Development
+Advantages
+Easy syntax
+Huge community
+Fast development
+Portable
+Powerful libraries
+Excellent for AI and backend development
+Conclusion
+
+Python is one of the most popular programming languages because of its simplicity, flexibility, and powerful ecosystem. It is suitable for beginners as well as professional software engineers and is widely used in modern technologies such as artificial intelligence, machine learning, web development, cloud computing, and automation.
