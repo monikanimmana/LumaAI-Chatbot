@@ -43,5 +43,4 @@ def index_pdf(file_path:str):
 
     )
 
-    print(f"stored {len(chunks)} chunks")
 
