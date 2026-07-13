@@ -1,13 +1,22 @@
-import ollama
+import ollama #type:ignore
 
 chat_history=[
     {
         "role":"System",
         "content":"You are a helpful AI assistant."
+        "Answer ONLY using the provided context. "
+        "If the answer is not present, say you don't know."
     }
 ]
 
-def stream_llm(prompt):
+def stream_llm(question:str,content:str):
+
+    prompt= f"""
+
+    context:{content}
+    question:{question}
+    answer:
+    """
 
     chat_history.append(
         {
@@ -25,10 +34,9 @@ def stream_llm(prompt):
     answer=""
 
     for chunk in stream:
-        yield chunk.message.content
-
-    print()
-
+        text=chunk["message"]["content"]
+        answer+=text
+        yield text
 
     chat_history.append(
         {
@@ -37,4 +45,4 @@ def stream_llm(prompt):
         }
     )
 
-    return answer
+   

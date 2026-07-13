@@ -1,6 +1,7 @@
 from app.rag import read_pdf , create_chunk , index_pdf
 from app.embeddings import create_embed 
 from app.vector_store import semantic_search
+from app.services.llm_service import stream_llm
 
 # text = read_pdf("documents/python.pdf")
 
@@ -54,8 +55,12 @@ from app.vector_store import semantic_search
 
 index_pdf("documents/python.pdf")
 
-question_ask = input("ASK: ")
+question = input("ASK: ")
 
-result = semantic_search(question_ask)
+chunks = semantic_search(question)
 
-print(result)
+content = "\n\n".join(chunks)
+
+for token in stream_llm(question,content):
+    print(token , end=" ",flush=True)
+
