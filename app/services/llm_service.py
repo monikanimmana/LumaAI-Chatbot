@@ -1,36 +1,30 @@
 import ollama #type:ignore
 from ..vector_store import semantic_search
+from ..chat_manager import get_conversation
 
-chat_history=[
-    {
-        "role":"System",
-        "content":"You are a helpful AI assistant."
-        "Answer ONLY using the provided context. "
-        "If the answer is not present, say you don't know."
-    }
-]
 
-def stream_llm(question:str,content:str):
+def stream_llm(conversation_id:str , question:str,content:str):
 
-    messages=chat_history.copy()
+    messages= get_conversation(conversation_id)
+    llm_messages = messages.copy()
 
-    messages.append(
-        {
-            "role":"user",
-            "content": f"""
+    llm_messages.append({
+        "role":"user",
+        "content": f"""
 
-            "context":{content},
-            "question":{question},
+    "context":
+    {content},
+    "question":
+    {question},
 
-            answer=
-            """
-        }
-    )
+    answer=
+    """
     
-
+    })
+    
     stream = ollama.chat(
         model="qwen3",
-        messages=messages,
+        messages=llm_messages,
         stream=True
     )
 
@@ -42,23 +36,52 @@ def stream_llm(question:str,content:str):
         yield text
 
  # Store only the conversation, not the retrieved context
-    chat_history.append(
+    messages.append(
         {
             "role":"user",
             "content":question
         }
     )
 
-    chat_history.append(
+    messages.append(
         {
             "role":"assistant",
             "content":answer
         }
     )
 
-def chat(question: str):
-    chunks = semantic_search(question)
+###### Helper Function for fast semantic search #####
+
+def build_search_query(conversation_id : str , question:str):
+
+    messages=get_conversation(conversation_id)
+
+    history=[]
+
+    for msg in messages[-4:]:
+        
+        if(msg["role"]!= "system"):
+            history.append(f"{msg["role"]}: {msg["content"]}")
+
+    history.append(f"user: {question}")
+
+    return "\n".join(history)
+
+
+def chat(conversation_id: str , question: str ):
+
+    get_conversation(conversation_id)
+    
+    search_query = build_search_query(conversation_id,question)
+
+    chunks = semantic_search(search_query)
+
     context = "\n\n".join(chunks)
-    return stream_llm(question, context)
+
+    return stream_llm(
+        conversation_id,
+        question,
+        context
+    )
 
    

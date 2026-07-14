@@ -9,12 +9,10 @@ router= APIRouter()
 
 @router.post("/chat")
 def chat(req: ChatRequest):
-
-    chunks = create_embed(req.prompt)
-
-    content = semantic_search(chunks)
-
     return StreamingResponse(
-        stream_llm(req.prompt , content),
+        chat(
+            req.conversation_id,
+            req.prompt
+        ),
         media_type="text/plain"
     )

@@ -5,7 +5,7 @@ import shutil
 from .rag import index_pdf
 from .schemas import ChatRequest
 from .vector_store import semantic_search
-from .services.llm_service import stream_llm
+from .services.llm_service import stream_llm , chat
 from fastapi.responses import StreamingResponse #type:ignore
  
 app=FastAPI()
@@ -26,13 +26,11 @@ async def upload_pdf(file:UploadFile = File(...)):
 
 @app.post('/chat')
 def chat_endpoint(request: ChatRequest):
-
-    chunks = semantic_search(request.prompt)
-
-    context = "\n\n".join(chunks)
-
     return StreamingResponse(
-        stream_llm(request.prompt , context),
+        chat(
+            request.conversation_id,
+            request.prompt
+        ),
         media_type="text/plain"
     )
 
