@@ -53,14 +53,19 @@ from app.services.llm_service import stream_llm
 
 #     print(doc)
 
-index_pdf("documents/python.pdf")
+# index_pdf("documents/python.pdf")
 
-question = input("ASK: ")
+# question = input("ASK: ")
 
-chunks = semantic_search(question)
+# chunks = semantic_search(question)
 
-content = "\n\n".join(chunks)
+# content = "\n\n".join(chunks)
 
-for token in stream_llm(question,content):
-    print(token , end=" ",flush=True)
+# for token in stream_llm(question,content):
+#     print(token , end=" ",flush=True)
+
+
+from app.database.database import conn
+
+print("database connected!")
 
