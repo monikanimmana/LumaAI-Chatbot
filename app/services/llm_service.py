@@ -1,11 +1,11 @@
 import ollama #type:ignore
 from ..vector_store import semantic_search
-from ..chat_manager import get_conversation
+from ..database.message_manage import get_messages , save_messages
 
 
 def stream_llm(conversation_id:str , question:str,content:str):
 
-    messages= get_conversation(conversation_id)
+    messages= get_messages(conversation_id)
     llm_messages = messages.copy()
 
     llm_messages.append({
@@ -28,33 +28,20 @@ def stream_llm(conversation_id:str , question:str,content:str):
         stream=True
     )
 
-    answer=""
+    answer= ""
 
     for chunk in stream:
         text=chunk["message"]["content"]
         answer+=text
         yield text
 
- # Store only the conversation, not the retrieved context
-    messages.append(
-        {
-            "role":"user",
-            "content":question
-        }
-    )
-
-    messages.append(
-        {
-            "role":"assistant",
-            "content":answer
-        }
-    )
-
+    save_messages(conversation_id , "user",question)
+    save_messages(conversation_id,"assistent",answer)
 ###### Helper Function for fast semantic search #####
 
 def build_search_query(conversation_id : str , question:str):
 
-    messages=get_conversation(conversation_id)
+    messages=get_messages(conversation_id)
 
     history=[]
 
@@ -70,7 +57,7 @@ def build_search_query(conversation_id : str , question:str):
 
 def chat(conversation_id: str , question: str ):
 
-    get_conversation(conversation_id)
+    get_messages(conversation_id)
     
     search_query = build_search_query(conversation_id,question)
 
